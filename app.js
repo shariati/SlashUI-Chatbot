@@ -190,6 +190,12 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 			];
 			sendQuickReply(sender, responseText, quick_replies);
 			break;
+		case 'get-weather':
+			fetch(`http://api.apixu.com/v1/current.json?key=574239cfbb4e43c7a67122908171908&q=${parameters.city}`)
+			.then((response) => {
+				console.log('response:');
+				console.log(response.current.temp_c);
+			});	
 		default:
 			//unhandled action, just send back the text
 			sendTextMessage(sender, responseText);
