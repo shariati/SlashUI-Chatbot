@@ -170,45 +170,48 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters) {
   switch (action) {
+    case 'say-hello':
+      sendQuickReply(sender, responseText, 'Olaaaaa how are you ..... I am from API');
+    break;
     case 'tell-a-joke':
-      let quick_replies = [{
-          "content_type": "text",
-          "title": "Blonde",
-          "payload": "A Blonde Joke 👱🏻‍♀️"
-        },
-        {
-          "content_type": "text",
-          "title": "Marriage",
-          "payload": "A Marriage one :)"
-        },
-        {
-          "content_type": "text",
-          "title": "Anything",
-          "payload": "Just any Random Stuff"
-        }
-      ];
-      sendQuickReply(sender, responseText, quick_replies);
+      // let quick_replies = [{
+      //     "content_type": "text",
+      //     "title": "Blonde",
+      //     "payload": "A Blonde Joke 👱🏻‍♀️"
+      //   },
+      //   {
+      //     "content_type": "text",
+      //     "title": "Marriage",
+      //     "payload": "A Marriage one :)"
+      //   },
+      //   {
+      //     "content_type": "text",
+      //     "title": "Anything",
+      //     "payload": "Just any Random Stuff"
+      //   }
+      // ];
+      // sendQuickReply(sender, responseText, quick_replies);
       break;
 	case 'get-weather':	
-      const options = {
-        url: `http://api.apixu.com/v1/current.json?key=574239cfbb4e43c7a67122908171908&q=${parameters.city}`,
-      };
+    //   const options = {
+    //     url: `http://api.apixu.com/v1/current.json?key=574239cfbb4e43c7a67122908171908&q=${parameters.city}`,
+    //   };
       
-      request.get(options, function (error, response) {
+    //   request.get(options, function (error, response) {
 		
-		const resp = JSON.parse(response.body);
+		// const resp = JSON.parse(response.body);
 
-		if(resp.hasOwnProperty('current')) {
-			console.log('---response.body----');
-			console.log(resp.current.temp_c); 
-			const weather_response =`The weather is ${resp.current.temp_c} and it is ${resp.current.condition.text}`;
-			sendTextMessage(sender, weather_response);
+		// if(resp.hasOwnProperty('current')) {
+		// 	console.log('---response.body----');
+		// 	console.log(resp.current.temp_c); 
+		// 	const weather_response =`The weather is ${resp.current.temp_c} and it is ${resp.current.condition.text}`;
+		// 	sendTextMessage(sender, weather_response);
 			
-		} else {
-			sendTextMessage(sender, 'I couldnt get that');
+		// } else {
+		// 	sendTextMessage(sender, 'I couldnt get that');
 			
-		}
-      });
+		// }
+    //   });
       break;
     default:
       //unhandled action, just send back the text
