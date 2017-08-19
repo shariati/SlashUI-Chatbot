@@ -174,13 +174,18 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 			let quick_replies = [
 				{
 					"content_type": "text",
-					"title": "Red",
-					"payload": "this is a red payload"
+					"title": "Blonde",
+					"payload": "A Blonde Joke"
 				},
 				{
 					"content_type": "text",
-					"title": "Green",
-					"payload": "this is a greenpayload"
+					"title": "Marriage",
+					"payload": "A Marriage Joke"
+				},
+				{
+					"content_type": "text",
+					"title": "Anything",
+					"payload": "Just any Random Joke"
 				}
 			];
 			sendQuickReply(sender, responseText, quick_replies);
