@@ -197,7 +197,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
       //var epic = {};
       request.get(options, function (error, response) {
         console.log('response:');
-        console.log(response.current.temp_c);
+        console.log(response);
       });
       break;
     default:
