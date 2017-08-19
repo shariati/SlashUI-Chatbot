@@ -199,8 +199,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 		
 		const resp = JSON.parse(response.body);
 		console.log('---response.body----');
-		console.log(resp.current); 
-		const weather_response =`The weather is ${response.body.current} and it's ${response.body.current}`;
+		console.log(resp.current.temp_c); 
+		const weather_response =`The weather is ${resp.current.temp_c} and it is ${resp.current.condition.text}`;
 		sendTextMessage(sender, weather_response);
       });
       break;
