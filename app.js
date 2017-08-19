@@ -174,23 +174,23 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
       sendTextMessage(sender, 'Olaaaaa how are you ..... I am from API');
       break;
     case 'tell-a-joke':
-      // let quick_replies = [{
-      //     "content_type": "text",
-      //     "title": "Blonde",
-      //     "payload": "A Blonde Joke 👱🏻‍♀️"
-      //   },
-      //   {
-      //     "content_type": "text",
-      //     "title": "Marriage",
-      //     "payload": "A Marriage one :)"
-      //   },
-      //   {
-      //     "content_type": "text",
-      //     "title": "Anything",
-      //     "payload": "Just any Random Stuff"
-      //   }
-      // ];
-      // sendQuickReply(sender, responseText, quick_replies);
+      let quick_replies = [{
+          "content_type": "text",
+          "title": "Blonde",
+          "payload": "A Blonde Joke 👱🏻‍♀️"
+        },
+        {
+          "content_type": "text",
+          "title": "Marriage",
+          "payload": "A Marriage one :)"
+        },
+        {
+          "content_type": "text",
+          "title": "Anything",
+          "payload": "Just any Random Stuff"
+        }
+      ];
+      sendQuickReply(sender, responseText, quick_replies);
       break;
     case 'get-weather':
       const options = {
