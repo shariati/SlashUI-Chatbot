@@ -194,10 +194,10 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
       const options = {
         url: `http://api.apixu.com/v1/current.json?key=574239cfbb4e43c7a67122908171908&q=${parameters.city}`,
       };
-      //var epic = {};
+      
       request.get(options, function (error, response) {
-        console.log('response:');
-        console.log(response);
+		const weather_response =`The weather is ${response.body.current.temp_c} and it's ${response.body.current.condition.text}`;
+		sendTextMessage(sender, weather_response);
       });
       break;
     default:
