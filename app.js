@@ -198,10 +198,17 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
       request.get(options, function (error, response) {
 		
 		const resp = JSON.parse(response.body);
-		console.log('---response.body----');
-		console.log(resp.current.temp_c); 
-		const weather_response =`The weather is ${resp.current.temp_c} and it is ${resp.current.condition.text}`;
-		sendTextMessage(sender, weather_response);
+
+		if(resp.hasOwnProperty('current')) {
+			console.log('---response.body----');
+			console.log(resp.current.temp_c); 
+			const weather_response =`The weather is ${resp.current.temp_c} and it is ${resp.current.condition.text}`;
+			sendTextMessage(sender, weather_response);
+			
+		} else {
+			sendTextMessage(sender, 'I couldnt get that');
+			
+		}
       });
       break;
     default:
