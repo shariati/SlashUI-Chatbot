@@ -7,7 +7,6 @@ const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
-const http = require('http');
 const uuid = require('uuid');
 
 // Messenger API parameters
