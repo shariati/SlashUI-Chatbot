@@ -190,15 +190,14 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
       ];
       sendQuickReply(sender, responseText, quick_replies);
       break;
-	case 'get-weather':
-	console.log('parameters:');
-	console.log(parameters);
-	
+	case 'get-weather':	
       const options = {
         url: `http://api.apixu.com/v1/current.json?key=574239cfbb4e43c7a67122908171908&q=${parameters.city}`,
       };
       
       request.get(options, function (error, response) {
+		 console.log('response.body.current');
+		 console.log(response.body.current); 
 		const weather_response =`The weather is ${response.body.current} and it's ${response.body.current}`;
 		sendTextMessage(sender, weather_response);
       });
