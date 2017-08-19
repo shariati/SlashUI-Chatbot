@@ -174,20 +174,54 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
       sendTextMessage(sender, 'Olaaaaa how are you ..... I am from API');
       break;
     case 'tell-a-joke':
-      let quick_replies = [{
-          "content_type": "text",
-          "title": "Blonde",
-          "payload": "A Blonde Joke 👱🏻‍♀️"
+      let quick_replies = [
+        {
+          "title": "Classic T-Shirt Collection",
+          "subtitle": "See all our colors",
+          "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",          
+          "buttons": [
+            {
+              "title": "View",
+              "type": "web_url",
+              "url": "https://peterssendreceiveapp.ngrok.io/collection",
+              "messenger_extensions": true,
+              "webview_height_ratio": "tall",
+              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
+            }
+          ]
         },
         {
-          "content_type": "text",
-          "title": "Marriage",
-          "payload": "A Marriage one :)"
+          "title": "Classic White T-Shirt",
+          "subtitle": "See all our colors",
+          "default_action": {
+            "type": "web_url",
+            "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+            "messenger_extensions": true,
+            "webview_height_ratio": "tall",
+            "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+          }
         },
         {
-          "content_type": "text",
-          "title": "Anything",
-          "payload": "Just any Random Stuff"
+          "title": "Classic Blue T-Shirt",
+          "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
+          "subtitle": "100% Cotton, 200% Comfortable",
+          "default_action": {
+            "type": "web_url",
+            "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
+            "messenger_extensions": true,
+            "webview_height_ratio": "tall",
+            "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+          },
+          "buttons": [
+            {
+              "title": "Shop Now",
+              "type": "web_url",
+              "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
+              "messenger_extensions": true,
+              "webview_height_ratio": "tall",
+              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
+            }
+          ]        
         }
       ];
       sendQuickReply(sender, responseText, quick_replies);
