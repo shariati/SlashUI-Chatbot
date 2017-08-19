@@ -9,7 +9,6 @@ const request = require('request');
 const app = express();
 const uuid = require('uuid');
 
-
 // Messenger API parameters
 if (!config.FB_PAGE_TOKEN) {
 	throw new Error('missing FB_PAGE_TOKEN');
@@ -27,8 +26,6 @@ if (!config.SERVER_URL) { //used for ink to static files
 	throw new Error('missing SERVER_URL');
 }
 
-
-
 app.set('port', (process.env.PORT || 5000))
 
 //verify request came from facebook
@@ -42,13 +39,10 @@ app.use(express.static('public'));
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
 	extended: false
-}))
+}));
 
 // Process application/json
-app.use(bodyParser.json())
-
-
-
+app.use(bodyParser.json());
 
 const apiAiService = apiai(config.API_AI_CLIENT_ACCESS_TOKEN, {
 	language: "en",
@@ -59,7 +53,7 @@ const sessionIds = new Map();
 // Index route
 app.get('/', function (req, res) {
 	res.send('Hello world, I am a chat bot')
-})
+});
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
@@ -70,7 +64,7 @@ app.get('/webhook/', function (req, res) {
 		console.error("Failed validation. Make sure the validation tokens match.");
 		res.sendStatus(403);
 	}
-})
+});
 
 /*
  * All callbacks for Messenger are POST-ed. They will be sent to the same
@@ -83,10 +77,8 @@ app.post('/webhook/', function (req, res) {
 	var data = req.body;
 	console.log(JSON.stringify(data));
 
-
-
 	// Make sure this is a page subscription
-	if (data.object == 'page') {
+	if (data.object === 'page') {
 		// Iterate over each entry
 		// There may be multiple if batched
 		data.entry.forEach(function (pageEntry) {
@@ -119,10 +111,6 @@ app.post('/webhook/', function (req, res) {
 	}
 });
 
-
-
-
-
 function receivedMessage(event) {
 
 	var senderID = event.sender.id;
@@ -154,7 +142,6 @@ function receivedMessage(event) {
 		return;
 	}
 
-
 	if (messageText) {
 		//send message to api.ai
 		sendToApiAi(senderID, messageText);
@@ -162,7 +149,6 @@ function receivedMessage(event) {
 		handleMessageAttachments(messageAttachments, senderID);
 	}
 }
-
 
 function handleMessageAttachments(messageAttachments, senderID){
 	//for now just reply
@@ -227,7 +213,6 @@ function handleMessage(message, sender) {
 	}
 }
 
-
 function handleCardMessages(messages, sender) {
 
 	let elements = [];
@@ -253,7 +238,6 @@ function handleCardMessages(messages, sender) {
 			buttons.push(button);
 		}
 
-
 		let element = {
 			"title": message.title,
 			"image_url":message.imageUrl,
@@ -264,7 +248,6 @@ function handleCardMessages(messages, sender) {
 	}
 	sendGenericMessage(sender, elements);
 }
-
 
 function handleApiAiResponse(sender, response) {
 	let responseText = response.result.fulfillment.speech;
@@ -283,14 +266,14 @@ function handleApiAiResponse(sender, response) {
 		let timeout = 0;
 		for (var i = 0; i < messages.length; i++) {
 
-			if ( previousType == 1 && (messages[i].type != 1 || i == messages.length - 1)) {
+			if ( previousType == 1 && (messages[i].type !== 1 || i === messages.length - 1)) {
 
 				timeout = (i - 1) * timeoutInterval;
 				setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
 				cardTypes = [];
 				timeout = i * timeoutInterval;
 				setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
-			} else if ( messages[i].type == 1 && i == messages.length - 1) {
+			} else if ( messages[i].type === 1 && i === messages.length - 1) {
 				cardTypes.push(messages[i]);
                 		timeout = (i - 1) * timeoutInterval;
                 		setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
@@ -305,7 +288,7 @@ function handleApiAiResponse(sender, response) {
 			previousType = messages[i].type;
 
 		}
-	} else if (responseText == '' && !isDefined(action)) {
+	} else if (responseText === '' && !isDefined(action)) {
 		//api ai could not evaluate input.
 		console.log('Unknown query' + response.result.resolvedQuery);
 		sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
@@ -340,9 +323,6 @@ function sendToApiAi(sender, text) {
 	apiaiRequest.on('error', (error) => console.error(error));
 	apiaiRequest.end();
 }
-
-
-
 
 function sendTextMessage(recipientId, text) {
 	var messageData = {
@@ -466,8 +446,6 @@ function sendFileMessage(recipientId, fileName) {
 	callSendAPI(messageData);
 }
 
-
-
 /*
  * Send a button message using the Send API.
  *
@@ -492,7 +470,6 @@ function sendButtonMessage(recipientId, text, buttons) {
 	callSendAPI(messageData);
 }
 
-
 function sendGenericMessage(recipientId, elements) {
 	var messageData = {
 		recipient: {
@@ -511,7 +488,6 @@ function sendGenericMessage(recipientId, elements) {
 
 	callSendAPI(messageData);
 }
-
 
 function sendReceiptMessage(recipientId, recipient_name, currency, payment_method,
 							timestamp, elements, address, summary, adjustments) {
@@ -585,7 +561,6 @@ function sendReadReceipt(recipientId) {
  */
 function sendTypingOn(recipientId) {
 
-
 	var messageData = {
 		recipient: {
 			id: recipientId
@@ -601,7 +576,6 @@ function sendTypingOn(recipientId) {
  *
  */
 function sendTypingOff(recipientId) {
-
 
 	var messageData = {
 		recipient: {
@@ -639,7 +613,6 @@ function sendAccountLinking(recipientId) {
 
 	callSendAPI(messageData);
 }
-
 
 function greetUserText(userId) {
 	//first read user firstname
@@ -702,8 +675,6 @@ function callSendAPI(messageData) {
 	});
 }
 
-
-
 /*
  * Postback Event
  *
@@ -732,7 +703,6 @@ function receivedPostback(event) {
 		"at %d", senderID, recipientID, payload, timeOfPostback);
 
 }
-
 
 /*
  * Message Read Event
