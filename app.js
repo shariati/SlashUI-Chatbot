@@ -175,17 +175,17 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 				{
 					"content_type": "text",
 					"title": "Blonde",
-					"payload": "A Blonde Joke"
+					"payload": "A Blonde Joke 👱🏻‍♀️"
 				},
 				{
 					"content_type": "text",
 					"title": "Marriage",
-					"payload": "A Marriage Joke"
+					"payload": "A Marriage one :)"
 				},
 				{
 					"content_type": "text",
 					"title": "Anything",
-					"payload": "Just any Random Joke"
+					"payload": "Just any Random Stuff"
 				}
 			];
 			sendQuickReply(sender, responseText, quick_replies);
